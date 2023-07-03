@@ -40,7 +40,7 @@ MY_APPS = [
     "users",
     "books",
     "lending",
-    "copies",
+    "copies"
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
@@ -56,7 +56,10 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -150,5 +153,5 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
+AUTH_USER_MODEL = 'users.UserModel'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
