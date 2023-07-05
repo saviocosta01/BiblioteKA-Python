@@ -4,7 +4,6 @@ from users.models import UserModel
 from django.contrib.auth.hashers import make_password
 
 
-
 class UserSerializer(ModelSerializer):
     def create(self, validated_data: dict):
         category_selection = validated_data.get("category")
@@ -12,15 +11,13 @@ class UserSerializer(ModelSerializer):
             return UserModel.objects.create_user(**validated_data)
         elif category_selection == "CONTRIBUIDOR DA BIBLIOTECA":
             return UserModel.objects.create_superuser(**validated_data)
-    
-    def update(self, instance, validated_data:dict):
-        category_selection = validated_data.get('category')
+
+    def update(self, instance, validated_data: dict):
+        category_selection = validated_data.get("category")
         for key, value in validated_data.items():
             if key == "password":
                 value = make_password(validated_data[key])
-            setattr(instance,key, value)
-    
-                
+            setattr(instance, key, value)
 
         instance.save()
         return instance
