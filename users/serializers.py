@@ -36,15 +36,16 @@ class UserSerializer(ModelSerializer):
                    'last_login',
                    "is_superuser",
                    "date_joined",
-                   'lending_acess'
+                   'lending_acess',
+                   'books'
                    ]
         extra_kwargs = {
             "password": {"write_only": True},
             "username": {"validators": [UniqueValidator(queryset=UserModel.objects.all(), message="A user with that username already exists.")]},
             "email": {"validators": [UniqueValidator(queryset=UserModel.objects.all(), message="A user with that email already exists.")]},
         }
-        read_only_fields = ["id", "is_superuser","is_active", "date_joined","last_login","lending_acess"]
-           
+        read_only_fields = ["id", "is_superuser","is_active", "date_joined","last_login","lending_acess", 'books']
+        
        
           
            
