@@ -18,7 +18,7 @@ class LendingSerializer(serializers.ModelSerializer):
     def create(self, validadet_data):
         user_logged = self.context["request"].user
 
-        days_to_return = 4
+        days_to_return = 3
         expiration_date = date.today() + timedelta(days=days_to_return)
 
         if expiration_date.weekday() == calendar.SATURDAY:
@@ -29,7 +29,7 @@ class LendingSerializer(serializers.ModelSerializer):
 
         expiration_date = date.today() + timedelta(days=days_to_return)
 
-        if date.today() < expiration_date:
+        if date.today() > expiration_date:
             user_logged.lending_acess = False
             user_logged.save()
             raise PermissionDenied()

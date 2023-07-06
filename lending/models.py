@@ -7,6 +7,7 @@ from users.models import UserModel
 class Lending(models.Model):
     lending_date = models.DateField(auto_now_add=True)
     expiration_date = models.DateField(null=True, blank=True)
+    avaliable = models.BooleanField(default=True)
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
