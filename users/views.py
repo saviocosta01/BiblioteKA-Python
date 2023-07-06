@@ -16,10 +16,3 @@ class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
     lookup_url_kwarg = "pk"
-
-    def perform_update(self, serializer: UserSerializer):
-        if self.request.data.get("category"):
-            category = self.request.data.remove("category")
-        print(self.request.data)
-
-        serializer.save(self.request.data)
