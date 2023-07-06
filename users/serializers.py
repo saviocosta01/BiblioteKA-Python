@@ -46,10 +46,13 @@ class UserSerializer(ModelSerializer):
         }
         read_only_fields = ["id", "is_superuser","is_active", "date_joined","last_login","lending_acess", 'books']
         
-       
-          
-           
-        
-          
-                
-
+class RetrieveLendingUser(ModelSerializer):
+    model = UserModel
+    fields = [
+        'id',
+        'username',            
+        'email',            
+        'address',
+        'category',
+        "lending_acess"          
+        ]
