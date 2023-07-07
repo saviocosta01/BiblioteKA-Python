@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Copies
-from books.serializers import BooksSerializer
+from books.serializers import BookSerializer
 
 
 class CopiesSerializer(serializers.ModelSerializer):
-    book = BooksSerializer(read_only=True)
+    book = BookSerializer(read_only=True)
 
     class Meta:
         model = Copies
