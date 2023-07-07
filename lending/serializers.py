@@ -1,8 +1,10 @@
 from rest_framework import serializers
+
+from users.serializers import UserSerializer
 from .models import Lending
 from datetime import date, timedelta
 import calendar
-from users.serializers import UserSerializer, RetrieveLendingUser
+
 from rest_framework.fields import CurrentUserDefault
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404

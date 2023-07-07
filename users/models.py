@@ -12,4 +12,4 @@ class UserModel(AbstractUser):
     address = models.CharField(max_length=150)
     category = models.CharField(choices=CategorySelection.choices)
     lending_acess = models.BooleanField(default=True)
-    books = models.ManyToManyField("books.Book", related_name="users")
+
