@@ -2,10 +2,11 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework.validators import UniqueValidator
 from users.models import UserModel
 from django.contrib.auth.hashers import make_password
+from lending.serializers import LendingSerializer
 
 
 class UserSerializer(ModelSerializer):
-
+    lending = LendingSerializer(read_only = True)
     def create(self, validated_data: dict):
         category_selection = validated_data.get('category')
         if category_selection == "ESTUDANTE":
@@ -37,14 +38,16 @@ class UserSerializer(ModelSerializer):
                    "is_superuser",
                    "date_joined",
                    'lending_acess',
-                   'books'
+                   'books',
+                   'lending'
                    ]
+        depth=2
         extra_kwargs = {
             "password": {"write_only": True},
             "username": {"validators": [UniqueValidator(queryset=UserModel.objects.all(), message="A user with that username already exists.")]},
             "email": {"validators": [UniqueValidator(queryset=UserModel.objects.all(), message="A user with that email already exists.")]},
         }
-        read_only_fields = ["id", "is_superuser","is_active", "date_joined","last_login","lending_acess", 'books']
+        read_only_fields = ["id", "is_superuser","is_active", "date_joined","last_login","lending_acess", 'books','lending']
         
 class RetrieveLendingUser(ModelSerializer):
     model = UserModel
