@@ -4,10 +4,7 @@ from users.serializers import UserSerializer
 
 
 class BookSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        return Book.objects.create(**validated_data)
-    
-    user = UserSerializer(read_only=True)
+    users = UserSerializer(read_only= True, many=True)
 
     class Meta:
         model = Book
@@ -19,8 +16,8 @@ class BookSerializer(serializers.ModelSerializer):
          "description", 
          "publishing_company", 
          "number_of_followers",
-         "user"]
-        read_only_fields = ["id"]
+         "users"]
+        read_only_fields = ["id","number_of_followers", "users"]
         extra_kwargs = {
             "book_name": {"required": True},
             "autho": {"required": True},
@@ -28,5 +25,9 @@ class BookSerializer(serializers.ModelSerializer):
             "publication": {"required": True},
             "description": {"required": True},
             "publishing_company": {"required": True},
-            "number_of_followers": {"required": True},
+           
         }
+
+    def create(self, validated_data):
+        return Book.objects.create(**validated_data)
+    

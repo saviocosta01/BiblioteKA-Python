@@ -55,7 +55,7 @@ class UserSerializer(ModelSerializer):
             "is_superuser",
             "date_joined",
             "lending_acess",
-            "books",
+      
             'lendings'
         ]
         depth= 2
@@ -85,7 +85,7 @@ class UserSerializer(ModelSerializer):
             "date_joined",
             "last_login",
             "lending_acess",
-            "books",
+        
             'lendings'
         ]
 
