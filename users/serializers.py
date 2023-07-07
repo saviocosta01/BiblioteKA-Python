@@ -66,3 +66,8 @@ class UserSerializer(ModelSerializer):
             "lending_acess",
             "books",
         ]
+
+
+class RetrieveLendingUser(ModelSerializer):
+    model = UserModel
+    fields = ["id", "username", "email", "address", "category", "lending_acess"]
