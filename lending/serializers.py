@@ -1,16 +1,16 @@
 from rest_framework import serializers
+
+from users.serializers import UserSerializer
 from .models import Lending
 from datetime import date, timedelta
 import calendar
-from users.serializers import UserSerializer, RetrieveLendingUser
+
 from rest_framework.fields import CurrentUserDefault
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404
-from users.models import UserModel
+from users.serializers import RetrieveLendingUser, CreateLendingUser
 
 
 class LendingSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True, default=CurrentUserDefault())
+    user = CreateLendingUser(read_only=True, default=CurrentUserDefault())
 
     class Meta:
         model = Lending
