@@ -2,60 +2,74 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework.validators import UniqueValidator
 from users.models import UserModel
 from django.contrib.auth.hashers import make_password
-from lending.serializers import LendingSerializer
 
 
 class UserSerializer(ModelSerializer):
-    lending = LendingSerializer(read_only = True)
+
     def create(self, validated_data: dict):
-        category_selection = validated_data.get('category')
+        category_selection = validated_data.get("category")
         if category_selection == "ESTUDANTE":
             return UserModel.objects.create_user(**validated_data)
         elif category_selection == "CONTRIBUIDOR DA BIBLIOTECA":
             return UserModel.objects.create_superuser(**validated_data)
-    
-    def update(self, instance, validated_data:dict):
-        
-        validated_data.pop('category', instance.category)
+
+    def update(self, instance, validated_data: dict):
+        validated_data.pop("category", instance.category)
         for key, value in validated_data.items():
             if key == "password":
                 value = make_password(validated_data[key])
-            setattr(instance,key, value)
+            setattr(instance, key, value)
         instance.save()
         return instance
-    
+
     class Meta:
         model = UserModel
-        fields = ['id',
-                   'username', 
-                   'first_name', 
-                   'last_name', 
-                   'email', 
-                   'address', 
-                   'category',
-                   'password',
-                   'last_login',
-                   "is_superuser",
-                   "date_joined",
-                   'lending_acess',
-                   'books',
-                   'lending'
-                   ]
-        depth=2
+        fields = [
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "address",
+            "category",
+            "password",
+            "last_login",
+            "is_superuser",
+            "date_joined",
+            "lending_acess",
+            "books",
+        ]
+        depth= 2
         extra_kwargs = {
             "password": {"write_only": True},
-            "username": {"validators": [UniqueValidator(queryset=UserModel.objects.all(), message="A user with that username already exists.")]},
-            "email": {"validators": [UniqueValidator(queryset=UserModel.objects.all(), message="A user with that email already exists.")]},
+            "username": {
+                "validators": [
+                    UniqueValidator(
+                        queryset=UserModel.objects.all(),
+                        message="A user with that username already exists.",
+                    )
+                ]
+            },
+            "email": {
+                "validators": [
+                    UniqueValidator(
+                        queryset=UserModel.objects.all(),
+                        message="A user with that email already exists.",
+                    )
+                ]
+            },
         }
-        read_only_fields = ["id", "is_superuser","is_active", "date_joined","last_login","lending_acess", 'books','lending']
-        
+        read_only_fields = [
+            "id",
+            "is_superuser",
+            "is_active",
+            "date_joined",
+            "last_login",
+            "lending_acess",
+            "books",
+        ]
+
+
 class RetrieveLendingUser(ModelSerializer):
     model = UserModel
-    fields = [
-        'id',
-        'username',            
-        'email',            
-        'address',
-        'category',
-        "lending_acess"          
-        ]
+    fields = ["id", "username", "email", "address", "category", "lending_acess"]
