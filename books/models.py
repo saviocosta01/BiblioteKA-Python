@@ -8,10 +8,8 @@ class Book(models.Model):
     book_name = models.CharField(max_length=150, unique=True)
     author = models.CharField(max_length=150)
     category = models.CharField(max_length=50)
-    publication = models.DateField()
+    publication = models.DateField(auto_now_add=True)
     description = models.TextField()
     publishing_company = models.CharField(max_length=60)
     number_of_followers = models.IntegerField(default=0)
     users = models.ManyToManyField("users.UserModel", related_name="books")
-
-
