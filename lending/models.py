@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import UserModel
+from copies.models import Copies
 
 # Create your models here.
 
@@ -9,9 +10,10 @@ class Lending(models.Model):
     expiration_date = models.DateField(null=True, blank=True)
     avaliable = models.BooleanField(default=True)
     user = models.ForeignKey(
-        UserModel,
-        on_delete=models.CASCADE,
-        related_name="lendings",
+        UserModel, on_delete=models.CASCADE, related_name="lendings"
+    )
+    copies = models.ForeignKey(
+        Copies, on_delete=models.CASCADE, related_name="lendings"
     )
 
 

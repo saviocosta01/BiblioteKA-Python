@@ -30,3 +30,16 @@ class BookSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Book.objects.create(**validated_data)
+
+
+class BookCopiesSerializer(serializers.ModelSerializer):
+    users = CreateLendingUser(read_only=True, many=True)
+
+    class Meta:
+        model = Book
+        fields = [
+            "id",
+            "book_name",
+            "users",
+        ]
+        read_only_fields = ["id", "users"]

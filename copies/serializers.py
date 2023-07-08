@@ -1,23 +1,17 @@
 from rest_framework import serializers
 from .models import Copies
-from books.serializers import BookSerializer
-
-
-
+from books.serializers import BookSerializer, BookCopiesSerializer
 
 
 class CopiesSerializer(serializers.ModelSerializer):
-    book_id = BookSerializer(read_only=True)
+    book = BookCopiesSerializer(read_only=True)
 
     class Meta:
         model = Copies
-        fields = ["id", "amount", "book_id"]
+        fields = ["id", "amount", "book"]
         read_only_fields = ["id"]
 
     def create(self, validated_data):
-        book = self.context["pk"]
-        print(book)
-        validated_data["pk"] = book
         return Copies.objects.create(**validated_data)
 
     # def update(self, instance: Copies, validated_data):
@@ -26,4 +20,3 @@ class CopiesSerializer(serializers.ModelSerializer):
 
     #     instance.save()
     #     return instance
-
