@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from lending.models import Lending
 from users.models import UserModel
@@ -131,3 +132,9 @@ class CreateLendingUser(ModelSerializer):
             "category",
             "lending_acess",
         ]
+
+
+class SendEmailSerializer(serializers.Serializer):
+    subject = serializers.CharField()
+    message = serializers.CharField()
+    recipient_list = serializers.ListField()
