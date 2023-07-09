@@ -106,7 +106,7 @@ DATABASES = {
     }
 }
 
-DATABASE_URL = os.getenv("DATABSE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
     db_from_env = dj_database_url.config(
