@@ -55,8 +55,8 @@ class UserSerializer(ModelSerializer):
             "is_superuser",
             "date_joined",
             "lending_acess",
-      
             'lendings'
+      
         ]
         depth= 2
         extra_kwargs = {
@@ -85,8 +85,8 @@ class UserSerializer(ModelSerializer):
             "date_joined",
             "last_login",
             "lending_acess",
-        
             'lendings'
+        
         ]
 
 
@@ -96,6 +96,3 @@ class RetrieveLendingUser(ModelSerializer):
         model = UserModel
         fields = ["id", "username", "email", "address", "category", "lending_acess",'lendings']
         read_only_fields = ["id", "username", "email", "address", "category", "lending_acess",'lendings']
-    
-
-

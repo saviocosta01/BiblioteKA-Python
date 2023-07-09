@@ -31,3 +31,11 @@ class BookSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Book.objects.create(**validated_data)
     
+class BookFollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model: Book
+        fields= [
+            'id',
+            'follow'
+        ]
+
