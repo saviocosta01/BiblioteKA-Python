@@ -18,6 +18,8 @@ class LendingView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         id = self.kwargs["pk"]
         copies = Copies.objects.get(id=id)
+        if copies.amount <= 0:
+            raise Exception("there are no copies")
         copies.amount -= 1
         copies.save()
         return serializer.save(user=self.request.user, copies=copies)

@@ -16,8 +16,3 @@ class Lending(models.Model):
     copies = models.ForeignKey(
         Copies, on_delete=models.CASCADE, related_name="lendings"
     )
-
-
-# class devolution(models.Model):
-#     lending = models.OneToOneField(Lending, on_delete=models.CASCADE)
-#     date_return = models.DateField(auto_now_add=True)
