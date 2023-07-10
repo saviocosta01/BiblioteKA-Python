@@ -16,6 +16,7 @@ class BookSerializer(serializers.ModelSerializer):
             "publication",
             "description",
             "publishing_company",
+            "follow",
             "number_of_followers",
             "users",
         ]
