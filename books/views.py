@@ -1,7 +1,7 @@
 from http.client import ResponseNotReady
 from django.conf import settings
 from .models import Book
-from .serializers import BookFollowSerializer, BookSerializer
+from .serializers import  BookSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework import generics
@@ -15,7 +15,7 @@ class BookView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-
-    # def perform_create(self, serializer):
-    #     return serializer.save(users=self.request.user)
-    
+    def perform_create(self, serializer):
+        user = self.request.user
+        livro = serializer.save()
+        livro.users.add(user)

@@ -1,41 +1,24 @@
 from rest_framework import generics
 from .models import Lending
-from .serializers import LendingSerializer, DevolutionSerializer
+from .serializers import LendingSerializer, DevolutionSerializer, TesteSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .permissions import LoanHistory
-from django.shortcuts import get_object_or_404
-from users.models import UserModel
-from users.serializers import UserSerializer
-
-# Create your views here.
+from rest_framework.permissions import IsAuthenticated
+from copies.models import Copies
 
 
 class LendingView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-
+    lookup_url_kwarg = "pk"
     queryset = Lending.objects.all()
     serializer_class = LendingSerializer
 
     def perform_create(self, serializer):
-        return serializer.save(user=self.request.user)
-
-
-class ViewLoanHistory(generics.ListAPIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAdminUser]
-
-    serializer_class = LendingSerializer
-    queryset = Lending.objects.all()
-
-    # def get_queryset(self):
-    #     user_id = self.kwargs["pk"]
-    #     user = get_object_or_404(UserModel, pk=user_id)
-    #     Lending_date = Lending.objects.filter(user=user)
-    #     queryset = Lending_date.filter(avaliable=True)
-    #     return queryset
+        id = self.kwargs["pk"]
+        copies = Copies.objects.get(id=id)
+        copies.amount -= 1
+        copies.save()
+        return serializer.save(user=self.request.user, copies=copies)
 
 
 class DevolutionView(generics.UpdateAPIView):
@@ -44,3 +27,11 @@ class DevolutionView(generics.UpdateAPIView):
 
     serializer_class = DevolutionSerializer
     queryset = Lending.objects.all()
+
+
+class TesteLendings(generics.ListAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    lookup_url_kwarg = "pk"
+    queryset = Lending.objects.all()
+    serializer_class = TesteSerializer

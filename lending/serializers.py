@@ -6,13 +6,14 @@ from datetime import date, timedelta
 import calendar
 
 from rest_framework.fields import CurrentUserDefault
+from users.serializers import RetrieveLendingUser, CreateLendingUser
+from copies.serializers import CopiesSerializer
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404
-from users.models import UserModel
 
 
 class LendingSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True, default=CurrentUserDefault())
+    user = CreateLendingUser(read_only=True, default=CurrentUserDefault())
+    copies = CopiesSerializer(read_only=True)
 
     class Meta:
         model = Lending
@@ -23,6 +24,7 @@ class LendingSerializer(serializers.ModelSerializer):
             "expiration_date",
             "avaliable",
             "user",
+            "copies",
         ]
 
     def create(self, validadet_data):
@@ -38,10 +40,14 @@ class LendingSerializer(serializers.ModelSerializer):
 
         expiration_date = date.today() + timedelta(days=days_to_return)
 
-        # if date.today() > expiration_date:
-        #     user_logged.lending_acess = False
-        #     user_logged.save()
-        #     raise PermissionDenied()
+        lendings_data = Lending.objects.filter(user=user_logged)
+        print(lendings_data)
+
+        for i in lendings_data:
+            if date.today() < i.expiration_date:
+                user_logged.lending_acess = False
+                user_logged.save()
+                raise PermissionDenied()
 
         return Lending.objects.create(expiration_date=expiration_date, **validadet_data)
 
@@ -55,3 +61,23 @@ class DevolutionSerializer(serializers.ModelSerializer):
         instance.avaliable = False
         instance.save()
         return instance
+
+
+class TesteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lending
+        fields = "__all__"
+        read_only_fields = [
+            "id",
+            "lending_date",
+            "expiration_date",
+            "avaliable",
+            "user",
+            "copies",
+        ]
+
+    def get(self, validadet_data):
+        user_logged = self.context["request"].user
+        lendings_data = Lending.objects.filter(user=user_logged)
+        print(lendings_data.expiration_date, "aquiiiiiii")
+        return lendings_data

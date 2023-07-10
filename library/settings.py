@@ -41,6 +41,7 @@ MY_APPS = ["users", "books", "lending", "copies"]
 THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
+    "drf_spectacular"
 ]
 
 DJANGO_APPS = [

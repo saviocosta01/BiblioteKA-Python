@@ -24,6 +24,7 @@ class LendingUser(ModelSerializer):
 
 class UserSerializer(ModelSerializer):
     lendings = LendingUser(many=True, read_only=True)
+
     def create(self, validated_data: dict):
         category_selection = validated_data.get("category")
         if category_selection == "ESTUDANTE":
@@ -55,10 +56,9 @@ class UserSerializer(ModelSerializer):
             "is_superuser",
             "date_joined",
             "lending_acess",
-            'lendings'
-      
+            "lendings",
         ]
-        depth= 2
+        depth = 2
         extra_kwargs = {
             "password": {"write_only": True},
             "username": {
@@ -85,14 +85,49 @@ class UserSerializer(ModelSerializer):
             "date_joined",
             "last_login",
             "lending_acess",
-            'lendings'
-        
+            "lendings",
         ]
 
 
 class RetrieveLendingUser(ModelSerializer):
     lendings = LendingUser(many=True, read_only=True)
+
     class Meta:
         model = UserModel
-        fields = ["id", "username", "email", "address", "category", "lending_acess",'lendings']
-        read_only_fields = ["id", "username", "email", "address", "category", "lending_acess",'lendings']
+        fields = [
+            "id",
+            "username",
+            "email",
+            "address",
+            "category",
+            "lending_acess",
+            "lendings",
+        ]
+        read_only_fields = [
+            "id",
+            "username",
+            "email",
+            "address",
+            "category",
+            "lending_acess",
+            "lendings",
+        ]
+
+
+class CreateLendingUser(ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = [
+            "id",
+            "username",
+            "email",
+            "category",
+            "lending_acess",
+        ]
+        read_only_fields = [
+            "id",
+            "username",
+            "email",
+            "category",
+            "lending_acess",
+        ]
