@@ -1,11 +1,10 @@
 from rest_framework import serializers
-
 from .models import Lending
 from datetime import date, timedelta
 import calendar
 
 from rest_framework.fields import CurrentUserDefault
-from users.serializers import RetrieveLendingUser, CreateLendingUser
+from users.serializers import CreateLendingUser
 from copies.serializers import CopiesSerializer
 from django.core.exceptions import PermissionDenied
 
@@ -57,6 +56,3 @@ class DevolutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lending
         fields = ["avaliable"]
-
-    # def update(self, instance, validated_data):
-    #     return instance
