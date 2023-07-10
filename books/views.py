@@ -19,3 +19,10 @@ class BookView(generics.ListCreateAPIView):
         user = self.request.user
         livro = serializer.save()
         livro.users.add(user)
+
+class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAdminUser]
+
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
