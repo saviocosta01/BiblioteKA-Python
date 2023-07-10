@@ -9,6 +9,7 @@ class Lending(models.Model):
     lending_date = models.DateField(auto_now_add=True)
     expiration_date = models.DateField(null=True, blank=True)
     avaliable = models.BooleanField(default=True)
+    lock_time = models.IntegerField(default=0)
     user = models.ForeignKey(
         UserModel, on_delete=models.CASCADE, related_name="lendings"
     )
