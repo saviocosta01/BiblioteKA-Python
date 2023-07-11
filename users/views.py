@@ -8,7 +8,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .permissions import IsAccountOwner,UserAccountOwner
 from drf_spectacular.utils import extend_schema
-
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class UserView(generics.ListCreateAPIView):
     queryset = UserModel.objects.all()
@@ -48,12 +49,11 @@ class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     @extend_schema(
         operation_id="user_patch",
         description="Rota para atualizar usuário",
-        summary="Rota para atualizar dados do usuário, não sendo possivel atualizar a caregoria entre colaborador e estudante",
-        request=UserSerializer,
-        responses={200:UserSerializer}
+        summary="Rota para atualizar dados do usuário, não sendo possivel atualizar a caregoria entre colaborador e estudante"
+
        )
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
+    def patch(self, request, *args, **kwargs):
+        return super().patch(request, *args, **kwargs)
     @extend_schema(
         operation_id="user_delete",
         description="Rota para deletar usuário",
@@ -109,3 +109,14 @@ class SendEmailView(APIView):
         )
 
         return Response({"message": "E-mails enviados"})
+
+class Login(TokenObtainPairView):
+    serializer_class= TokenObtainPairSerializer
+    
+    @extend_schema(
+        operation_id="user_login",
+        description="Rota para login",
+        summary="Fazer login do usuário"
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
