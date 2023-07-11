@@ -1,14 +1,13 @@
-from django.shortcuts import render
 from .models import Copies
 from .serializers import CopiesSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from books.models import Book
 
 
 class CopiesView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
     authentication_classes = (JWTAuthentication,)
     lookup_url_kwarg = "pk"
     queryset = Copies.objects.all()
