@@ -30,7 +30,7 @@ class LendingSerializer(serializers.ModelSerializer):
         user_logged = self.context["request"].user
         days_to_return = 3
         expiration_date = date.today() + timedelta(days=days_to_return)
-        print(expiration_date)
+
         if expiration_date.weekday() == calendar.SATURDAY:
             days_to_return += 2
 

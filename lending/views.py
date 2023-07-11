@@ -42,7 +42,6 @@ class DevolutionView(generics.UpdateAPIView):
         block_date = date.today() + timedelta(days=lending_instance.lock_time)
 
         for i in Lending_data:
-            print(i.avaliable)
             if date.today() < i.expiration_date:
                 self.request.user.lending_acess = True
                 self.request.user.save()
