@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+from books.models import Book
 from lending.models import Lending
 from users.models import UserModel
 from django.contrib.auth.hashers import make_password
