@@ -5,7 +5,7 @@ class Copies(models.Model):
     class Meta:
         ordering = ("id",)
 
-    amount = models.IntegerField()
+    amount = models.PositiveIntegerField()
     book = models.ForeignKey(
         "books.Book",
         on_delete=models.CASCADE,
