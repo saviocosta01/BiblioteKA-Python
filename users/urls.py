@@ -7,6 +7,6 @@ urlpatterns = [
     path("users/lendings/", views.UsersLendingsHistory.as_view()),
     path("users/<int:pk>/lendings/", views.UsersLendingsHistoryDetails.as_view()),
     path("users/<int:pk>/", views.UserDetailsView.as_view()),
-    path("users/login/", jwt_views.TokenObtainPairView.as_view()),
+    path("users/login/", views.Login.as_view()),
     path("sendmail/", views.SendEmailView.as_view()),
 ]
