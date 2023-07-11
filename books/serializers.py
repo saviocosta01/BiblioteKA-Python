@@ -4,19 +4,19 @@ from users.serializers import CreateLendingUser, UserFollowSerializder
 
 
 class BookFollowSerializer(serializers.ModelSerializer):
-    #user= UserFollowSerializder(read_only=True)
+    user= UserFollowSerializder(read_only=True)
     class Meta:
         model = BookFollow
         fields = [
             "id",
-            "user_id",
+            "user",
             "book_id",
         ]
-        read_only_fields = ["id", "user_id", "book_id"]
+        read_only_fields = ["id", "user", "book_id"]
 
 class BookSerializer(serializers.ModelSerializer):
     user = CreateLendingUser(read_only=True)
-    follows = BookFollowSerializer(read_only=True, many=True)
+    follows = BookFollowSerializer(read_only=True, many=True, source="bookfollow_set")
 
     class Meta:
         model = Book
