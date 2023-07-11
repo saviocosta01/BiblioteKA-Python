@@ -107,8 +107,21 @@ class SendEmailView(APIView):
             from_email=settings.EMAIL_HOST_USER,
             fail_silently=False
         )
-
         return Response({"message": "E-mails enviados"})
+    @extend_schema(
+        exclude=True
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+    @extend_schema(
+     
+        operation_id="email_post",
+        description="Rota para enviar e-mails",
+        summary="Enviar e-mails"
+    )
+    def post(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
 
 class Login(TokenObtainPairView):
     serializer_class= TokenObtainPairSerializer
