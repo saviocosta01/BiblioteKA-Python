@@ -26,9 +26,8 @@ class UserView(generics.ListCreateAPIView):
         description="Rota para cadastrar um estudante ou colaborador da biblioteca",
         summary="Cadastro de usuários"
     )
-    def post(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-    
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
 
 
 
@@ -119,8 +118,8 @@ class SendEmailView(APIView):
         description="Rota para enviar e-mails",
         summary="Enviar e-mails"
     )
-    def post(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
 
 
 class Login(TokenObtainPairView):
@@ -131,5 +130,5 @@ class Login(TokenObtainPairView):
         description="Rota para login",
         summary="Fazer login do usuário"
     )
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)

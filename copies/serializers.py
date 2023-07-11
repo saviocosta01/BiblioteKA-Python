@@ -9,7 +9,7 @@ class CopiesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Copies
         fields = ["id", "amount", "book"]
-        read_only_fields = ["id"]
+        read_only_fields = ["id","book"]
 
     def create(self, validated_data):
         return Copies.objects.create(**validated_data)
