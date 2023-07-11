@@ -10,12 +10,7 @@ from django.contrib.auth.hashers import make_password
 class LendingUser(ModelSerializer):
     class Meta:
         model = Lending
-        fields = [
-            "id",
-            "lending_date",
-            "expiration_date",
-            "avaliable",
-        ]
+        fields = ["id", "lending_date", "expiration_date", "avaliable", "lock_time"]
         read_only_fields = [
             "id",
             "lending_date",
@@ -139,18 +134,3 @@ class SendEmailSerializer(serializers.Serializer):
     subject = serializers.CharField()
     message = serializers.CharField()
     recipient_list = serializers.ListField()
-
-
-class UserFollowSerializder(serializers.ModelSerializer):
-    class Meta:
-        model = UserModel
-        fields = [
-            "id",
-            "username",
-            "email",
-        ]
-        read_only_fields = [
-            "id",
-            "username",
-            "email",
-        ]

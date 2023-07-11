@@ -17,6 +17,7 @@ class BookView(generics.ListCreateAPIView):
         return serializer.save(user=user)
 
 
+
 class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAdminUser]
