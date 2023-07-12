@@ -33,5 +33,7 @@ class CopiesView(generics.ListCreateAPIView):
         description="Rota para criar cópias de livros",
         summary="Criar cópias"
     )
-    def post(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+    
+    
