@@ -3,9 +3,9 @@ from .models import Book, BookFollow
 from users.serializers import CreateLendingUser, UserFollowSerializer
 
 
-
 class BookFollowSerializer(serializers.ModelSerializer):
     user= UserFollowSerializer(read_only=True)
+    
     class Meta:
         model = BookFollow
         fields = [
@@ -30,17 +30,15 @@ class BookSerializer(serializers.ModelSerializer):
             "description",
             "publishing_company",
             "follows",
-            "number_of_followers",
             "user",
         ]
-        read_only_fields = ["id", "number_of_followers", "publication","follows", "user"]
+        read_only_fields = ["id", "publication","follows", "user"]
 
     def create(self, validated_data):
         return Book.objects.create(**validated_data)
     
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
-        instance.number_of_followers += 1
         instance.save()
 
         return instance
