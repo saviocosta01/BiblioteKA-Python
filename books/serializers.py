@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Book, BookFollow
-from users.serializers import CreateLendingUser, UserFollowSerializder
+from users.serializers import CreateLendingUser, UserFollowSerializer
 
 
 class BookFollowSerializer(serializers.ModelSerializer):
-    user= UserFollowSerializder(read_only=True)
+    user= UserFollowSerializer(read_only=True)
     class Meta:
         model = BookFollow
         fields = [

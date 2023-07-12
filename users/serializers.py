@@ -134,3 +134,17 @@ class SendEmailSerializer(serializers.Serializer):
     subject = serializers.CharField()
     message = serializers.CharField()
     recipient_list = serializers.ListField()
+
+class UserFollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = [
+            "id",
+            "username",
+            "email",         
+        ]
+        read_only_fields = [
+            "id",
+            "username",
+            "email",
+        ]
