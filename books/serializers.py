@@ -3,6 +3,7 @@ from .models import Book, BookFollow
 from users.serializers import CreateLendingUser, UserFollowSerializer
 
 
+
 class BookFollowSerializer(serializers.ModelSerializer):
     user= UserFollowSerializer(read_only=True)
     class Meta:

@@ -38,8 +38,8 @@ class LendingView(generics.ListCreateAPIView):
         description="Rota para criar empréstimos de livros",
         summary="Criar empréstimos"
     )
-    def post(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
 
 class DevolutionView(generics.UpdateAPIView):
     authentication_classes = [JWTAuthentication]
