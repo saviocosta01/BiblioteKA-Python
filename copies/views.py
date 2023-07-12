@@ -35,3 +35,5 @@ class CopiesView(generics.ListCreateAPIView):
     )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
+    
+    
