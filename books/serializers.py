@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Book, BookFollow
-from users.serializers import CreateLendingUser, UserFollowSerializder
+from users.serializers import CreateLendingUser
 
 
 class BookFollowSerializer(serializers.ModelSerializer):
