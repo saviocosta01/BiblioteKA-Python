@@ -2,7 +2,6 @@ from .models import Book
 from .serializers import  BookFollowSerializer, BookSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAdminUser
-from rest_framework.views import APIView, Request, Response, status
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 
@@ -37,3 +36,7 @@ class FollowBookView(generics.ListCreateAPIView):
         return serializer.save(user=user, book=book)
 
    
+class FollowBookDetailView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    queryset = Book.objects.all()
+    serializer_class = BookFollowSerializer
