@@ -11,7 +11,6 @@ class Book(models.Model):
     publication = models.DateField(auto_now_add=True)
     description = models.TextField()
     publishing_company = models.CharField(max_length=60)
-    number_of_followers = models.IntegerField(default=0)
     follows = models.ManyToManyField("users.UserModel", through="books.BookFollow",related_name="follows")
     user = models.ForeignKey("users.UserModel", on_delete=models.PROTECT, related_name="books")
 
