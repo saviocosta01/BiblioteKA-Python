@@ -10,6 +10,7 @@ from .permissions import IsAccountOwner, UserAccountOwner
 from drf_spectacular.utils import extend_schema
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class UserView(generics.ListCreateAPIView):
@@ -35,7 +36,7 @@ class UserView(generics.ListCreateAPIView):
 
 class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAccountOwner | UserAccountOwner]
+    permission_classes = [IsAuthenticated]
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
     lookup_url_kwarg = "pk"

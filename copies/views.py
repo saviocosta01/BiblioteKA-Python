@@ -7,7 +7,6 @@ from books.models import Book
 from drf_spectacular.utils import extend_schema
 
 
-
 class CopiesView(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser]
     authentication_classes = (JWTAuthentication,)
@@ -23,17 +22,15 @@ class CopiesView(generics.ListCreateAPIView):
     @extend_schema(
         operation_id="copies_get",
         description="Rota para listar todos as cópias de livros",
-        summary="Listar cópias"
-
+        summary="Listar cópias",
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
+
     @extend_schema(
         operation_id="copies_post",
         description="Rota para criar cópias de livros",
-        summary="Criar cópias"
+        summary="Criar cópias",
     )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
-    
-    
